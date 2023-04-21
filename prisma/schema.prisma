@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// レシピ
+model Recipe {
+  id        Int         @id @default(autoincrement())
+  name      String
+  nameKana  String
+  Genre     String
+  ingredients RecipeOnIngredients[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+// 材料
+model Ingredient {
+  id        Int         @id @default(autoincrement())
+  name      String
+  nameKana  String
+  price     Int
+  kcal      Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  recipes   RecipeOnIngredients[]
+}
+
+// レシピと材料の中間テーブル
+model RecipeOnIngredients {
+  recipe    Recipe      @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  @@id([recipeId, ingredientId])
+}
