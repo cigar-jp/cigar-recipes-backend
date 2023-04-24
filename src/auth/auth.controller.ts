@@ -17,8 +17,8 @@ import { Csrf, Msg } from './interfaces/auth.interface';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('csrf')
-  getCsurfToken(@Req() req: Request): Csrf {
+  @Get('/csrf')
+  getCsrfToken(@Req() req: Request): Csrf {
     return { csrfToken: req.csrfToken() };
   }
 
