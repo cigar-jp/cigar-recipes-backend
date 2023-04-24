@@ -10,36 +10,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ユーザー
+model User {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  email           String   @unique
+  hashedPassword  String
+  name            String?
+  recipes         Recipe[]
+}
+
 // レシピ
 model Recipe {
-  id        Int         @id @default(autoincrement())
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
   name      String
   nameKana  String
   Genre     String
   ingredients RecipeOnIngredients[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  userId    Int
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // 材料
 model Ingredient {
-  id        Int         @id @default(autoincrement())
+  id        Int            @id @default(autoincrement())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
   name      String
   nameKana  String
   price     Int
   kcal      Int
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
   recipes   RecipeOnIngredients[]
 }
 
 // レシピと材料の中間テーブル
 model RecipeOnIngredients {
-  recipe    Recipe      @relation(fields: [recipeId], references: [id])
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  recipe    Recipe         @relation(fields: [recipeId], references: [id])
   recipeId  Int
-  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient Ingredient    @relation(fields: [ingredientId], references: [id])
   ingredientId Int
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
   @@id([recipeId, ingredientId])
 }
