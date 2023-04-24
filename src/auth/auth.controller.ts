@@ -6,15 +6,21 @@ import {
   HttpStatus,
   Res,
   Req,
+  Get,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { Msg } from './interfaces/auth.interface';
+import { Csrf, Msg } from './interfaces/auth.interface';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get('csrf')
+  getCsurfToken(@Req() req: Request): Csrf {
+    return { csrfToken: req.csrfToken() };
+  }
 
   @Post('signup')
   signup(@Body() dto: AuthDto): Promise<Msg> {
@@ -30,7 +36,7 @@ export class AuthController {
     const jwt = await this.authService.signIn(dto);
     res.cookie('access_token', jwt.accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'none',
       path: '/',
     });
@@ -38,14 +44,14 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('/signout')
+  @Post('signout')
   async signout(
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): Promise<Msg> {
     res.cookie('access_token', '', {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: 'none',
       path: '/',
     });
