@@ -28,7 +28,7 @@ model Recipe {
   updatedAt DateTime       @updatedAt
   name      String
   nameKana  String
-  Genre     String
+  genre     String
   ingredients RecipeOnIngredients[]
   userId    Int
   user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
