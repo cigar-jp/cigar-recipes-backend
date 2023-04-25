@@ -25,9 +25,11 @@ export class RecipeService {
   }
 
   createRecipe(userId: number, dto: CreateRecipeDto): Promise<Recipe> {
+    if (!userId)
+      throw new ForbiddenException('You are not allowed to create a recipe');
+
     const recipe = this.prisma.recipe.create({
       data: {
-        userId,
         ...dto,
       },
     });
@@ -45,7 +47,7 @@ export class RecipeService {
       },
     });
 
-    if (!recipe || recipe.userId !== userId)
+    if (!recipe || !userId)
       throw new ForbiddenException('You are not allowed to update this recipe');
 
     return this.prisma.recipe.update({
@@ -65,7 +67,7 @@ export class RecipeService {
       },
     });
 
-    if (!recipe || recipe.userId !== userId)
+    if (!recipe || !userId)
       throw new ForbiddenException('You are not allowed to delete this recipe');
 
     await this.prisma.recipe.delete({

@@ -18,7 +18,6 @@ model User {
   email           String   @unique
   hashedPassword  String
   name            String?
-  recipes         Recipe[]
 }
 
 // レシピ
@@ -29,9 +28,10 @@ model Recipe {
   name      String
   nameKana  String
   genre     Genre
-  ingredients RecipeOnIngredients[]
-  userId    Int
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  price     Int
+  kcal      Int
+  ingredientIds Int[]
+
 }
 
 // 材料
@@ -43,19 +43,20 @@ model Ingredient {
   nameKana  String
   price     Int
   kcal      Int
-  recipes   RecipeOnIngredients[]
+  description String?
+  // recipes   RecipeOnIngredients[]
 }
 
 // レシピと材料の中間テーブル
-model RecipeOnIngredients {
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  recipe    Recipe         @relation(fields: [recipeId], references: [id])
-  recipeId  Int
-  ingredient Ingredient    @relation(fields: [ingredientId], references: [id])
-  ingredientId Int
-  @@id([recipeId, ingredientId])
-}
+// model RecipeOnIngredients {
+//   createdAt DateTime       @default(now())
+//   updatedAt DateTime       @updatedAt
+//   recipe    Recipe         @relation(fields: [recipeId], references: [id])
+//   recipeId  Int
+//   ingredient Ingredient    @relation(fields: [ingredientId], references: [id])
+//   ingredientId Int
+//   @@id([recipeId, ingredientId])
+// }
 
 // ジャンル
 enum Genre {
