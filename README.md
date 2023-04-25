@@ -1,73 +1,43 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## これはなに？
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+料理成分管理アプリの backend リポジトリです
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## デプロイ環境
 
-## Description
+https://cigar-recipes.onrender.com
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 仕様
 
-## Installation
+- 料理は、以下の項目を持っています。
 
-```bash
-$ yarn install
-```
+  - 料理名
+  - 料理名(カナ)
+  - ジャンル (肉料理 | 魚料理 | サラダ)
+  - 材料 (複数)
 
-## Running the app
+- 材料は、以下の項目を持っています。
+  - 材料名
+  - 材料名(カナ)
+  - 値段
+  - カロリー
+  - 成分詳細 (テキスト)
 
-```bash
-# development
-$ yarn run start
+## 実装した機能
 
-# watch mode
-$ yarn run start:dev
+- ユーザーの CRUD API
+- 料理（レシピ）の CRUD API
+- 材料の GET API
+- csrf token, jwt token でセキュアな通信をする
 
-# production mode
-$ yarn run start:prod
-```
+## 実装にあたり注力したこと
 
-## Test
+- Nest.JS / prisma の組み合わせで環境構築から作ることが初めてだったため、キャッチアップしながらバックエンド開発に時間を集中して使いました。
 
-```bash
-# unit tests
-$ yarn run test
+## 今後のアイデア
 
-# e2e tests
-$ yarn run test:e2e
+（一週間の期限の中で削った機能や、もう少し時間をかけて追加していきたいこと）
 
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- 材料の CRUD
+- ユーザーごとに料理、材料を出し分ける
+- 料理のお気に入り機能
+- 料理と材料を many to many 中間テーブルで紐付ける
