@@ -28,7 +28,7 @@ model Recipe {
   updatedAt DateTime       @updatedAt
   name      String
   nameKana  String
-  genre     String
+  genre     Genre
   ingredients RecipeOnIngredients[]
   userId    Int
   user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -55,4 +55,11 @@ model RecipeOnIngredients {
   ingredient Ingredient    @relation(fields: [ingredientId], references: [id])
   ingredientId Int
   @@id([recipeId, ingredientId])
+}
+
+// ジャンル
+enum Genre {
+  meat
+  fish
+  salad
 }

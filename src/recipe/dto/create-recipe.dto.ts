@@ -11,7 +11,7 @@ export class CreateRecipeDto {
 
   @IsString()
   @IsNotEmpty()
-  genre: string;
+  genre: 'meat' | 'fish' | 'salad';
 
   // @IsString()
   // @IsOptional()

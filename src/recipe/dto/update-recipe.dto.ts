@@ -1,3 +1,4 @@
+import { Genre } from '@prisma/client';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateRecipeDto {
@@ -11,7 +12,7 @@ export class UpdateRecipeDto {
 
   @IsString()
   @IsNotEmpty()
-  genre: string;
+  genre: Genre;
 
   // @IsString()
   // @IsOptional()
