@@ -2,41 +2,18 @@ import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
-import { Genre, Recipe } from '@prisma/client';
-
-type FilterParams = {
-  name?: string;
-  nameKana?: string;
-  genre?: Genre;
-  price?: number;
-  kcal?: number;
-};
+import { Recipe } from '@prisma/client';
 
 @Injectable()
 export class RecipeService {
   constructor(private prisma: PrismaService) {}
 
-  getRecipes(filters: FilterParams): Promise<Recipe[]> {
-    // TODO: priceとkcalのフィルターを実装する
-    const { name, nameKana, genre } = filters;
-    // const { name, nameKana, genre, price, kcal } = filters;
-
-    const recipes = this.prisma.recipe.findMany({
-      where: {
-        AND: [
-          name ? { name: { contains: name } } : {},
-          nameKana ? { nameKana: { contains: nameKana } } : {},
-          genre ? { genre: { equals: genre } } : {},
-          // price ? { price: { lte: price } } : {},
-          // kcal ? { kcal: { lte: kcal } } : {},
-        ],
-      },
+  getRecipes(): Promise<Recipe[]> {
+    return this.prisma.recipe.findMany({
       orderBy: {
         createdAt: 'desc',
       },
     });
-
-    return recipes;
   }
 
   getRecipeById(id: number): Promise<Recipe> {
