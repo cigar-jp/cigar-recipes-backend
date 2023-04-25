@@ -28,8 +28,8 @@ model Recipe {
   name      String
   nameKana  String
   genre     Genre
-  price     Int
-  kcal      Int
+  price     Int?
+  kcal      Int?
   ingredientIds Int[]
 
 }

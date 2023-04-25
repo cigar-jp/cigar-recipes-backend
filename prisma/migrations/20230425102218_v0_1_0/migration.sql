@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Recipe" ALTER COLUMN "kcal" DROP NOT NULL,
+ALTER COLUMN "price" DROP NOT NULL;
