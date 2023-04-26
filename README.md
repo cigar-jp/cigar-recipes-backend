@@ -6,6 +6,9 @@
 
 https://cigar-recipes.onrender.com
 
+## 技術構成
+NestJS / Prisma / Postgres / Docker / Cookie based JWT認証 
+
 ## 仕様
 
 - 料理は、以下の項目を持っています。
